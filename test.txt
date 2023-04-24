@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="AmbSum.xsl"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:fias="urn:hl7-ru:fias" xmlns:identity="urn:hl7-ru:identity" xmlns:address="urn:hl7-ru:address" xmlns:medService="urn:hl7-ru:medService">
+	
+	<realmCode code="RU"/>
+	<typeId root="2.16.840.1.113883.1.3" extension="POCD_MT000040"/>
+	<templateId root="1.2.643.5.1.13.2.7.5.1.2.9.4"/>
+	<id root="###concat('oidMedOrg',.100.1.1.51)" extension="11112222233334444"/>
+	<code code="2" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.27" codeSystemName="Виды медицинской документации" displayName="Эпикриз по законченному случаю амбулаторный"/>
+	
+	<title>Эпикриз по законченному случаю амбулаторный</title>
+	
+	<effectiveTime value="###createDateTime"/>
+	
+	<confidentialityCode code="###confCode" codeSystem="1.2.643.5.1.13.13.99.2.285" codeSystemVersion="1.1" codeSystemName="Уровень конфиденциальности медицинского документа" displayName="###confValue"/>
+	
+	<languageCode code="ru-RU"/>
+	
+	<setId root="###concat('oidMedOrg',.100.1.1.50)" extension="11112222233334444"/>
+	
+	<versionNumber value="1"/>
+	
+	<recordTarget>
+		
+		<patientRole>
+			
+			<id root="###concat('oidMedOrg',.100.1.1.10)" extension="###patientId"/>
+			
+			<id root="1.2.643.100.3" extension="###patientSNILS"/>
+			
+			<identity:IdentityDoc>
+				
+				<identity:IdentityCardType xsi:type="CD" code="###patientDocCode" codeSystem="1.2.643.5.1.13.13.99.2.48" codeSystemVersion="4.2" codeSystemName="Документы, удостоверяющие личность" displayName="###patientDocValue"/>
+				
+				<identity:Series xsi:type="ST">###patientDocSer</identity:Series>
+				
+				<identity:Number xsi:type="ST">###patientDocNum</identity:Number>
+				
+				<identity:IssueOrgName xsi:type="ST">###concat('ОУФМС России','String(50)')</identity:IssueOrgName>
+				
+				<identity:IssueOrgCode xsi:type="ST">###patientDocOrgCode</identity:IssueOrgCode>
+				
+				
+				<identity:IssueDate xsi:type="TS" value="###genDate"/>
+			</identity:IdentityDoc>
+		
+			<identity:InsuracePolicy>
+				
+				<identity:InsuracePolicyType xsi:type="CD" code="###patientPolicyTypeCode" codeSystem="1.2.643.5.1.13.13.11.1035" codeSystemVersion="1.3" codeSystemName="Виды полиса обязательного медицинского страхования" displayName="###patientPolicyTypeValue"/>
+				
+				<identity:Number xsi:type="ST">###patientOmsNum</identity:Number>
+			</identity:InsuracePolicy>
+			
+			<addr>
+				
+				<address:Type xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.11.1504" codeSystemVersion="1.3" codeSystemName="Тип адреса пациента" displayName="Адрес по месту жительства (постоянной регистрации)"/>
+				
+				<streetAddressLine>###concat('Город ','String(10)',', улица ','String(10)',', дом 2, квартира 2')</streetAddressLine>
+			
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.4" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+				
+				<address:residentCode xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.11.1042" codeSystemVersion="2.1" codeSystemName="Вид места жительства" displayName="Город"/>
+				
+				<postalCode>###patientAddrIndex</postalCode>
+				
+				<fias:Address>
+				
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+				
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			
+			<addr>
+				
+				<address:Type xsi:type="CD" code="3" codeSystem="1.2.643.5.1.13.13.11.1504" codeSystemVersion="1.3" codeSystemName="Тип адреса пациента" displayName="Адрес фактического проживания (пребывания)"/>
+				
+				<streetAddressLine>###concat('Город ','String(10)',', улица ','String(10)',', дом 2, квартира 2')</streetAddressLine>
+				
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+				
+				<address:residentCode xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.11.1042" codeSystemVersion="2.1" codeSystemName="Вид места жительства" displayName="Город"/>
+				
+				<postalCode>###patientAddrIndex</postalCode>
+				
+				<fias:Address>
+					
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			
+			<telecom value="###concat('tel:+7','randInt(1to9999999999)')"/>
+			
+			<telecom use="MC" value="###concat('tel:+79','randInt(1to999999999)')"/>
+			
+			<telecom value="mailto:rtk@element.ru"/>
+		
+			<patient>
+				
+				<name>
+					
+					<family>###String(10)</family>
+				
+					<given>###String(5)</given>
+					
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+				
+				<administrativeGenderCode code="3" codeSystem="1.2.643.5.1.13.13.11.1040" codeSystemVersion="2.1" codeSystemName="Пол пациента" displayName="Неопределенный"/>
+				
+				<birthTime value="###genDate"/>
+			</patient>
+			
+			<providerOrganization>
+				
+				<id root="###oidMedOrg"/>
+				
+				<id root="1.2.643.5.1.13.2.1.1.1504.101" extension="ЛО-77-01-018109" assigningAuthorityName="Федеральная служба по надзору в сфере здравоохранения (Росздравнадзор). Дата регистрации: 23.05.2019."/>
+				
+				<identity:Props>
+					
+					<identity:Ogrn xsi:type="ST">###providerOGRN</identity:Ogrn> 
+					
+					<identity:Okpo xsi:type="ST">12345678</identity:Okpo>
+					
+					<identity:Okato xsi:type="ST">12345678000</identity:Okato>
+				</identity:Props>
+				
+				<name>###medOrgName</name>
+				
+				<telecom value="tel:+74955550202" use="WP"/>
+				
+				<telecom value="http:med-org.ru"/>
+				
+				<addr>
+					
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+					
+					<postalCode>###medOrgIndex</postalCode>
+					
+					<fias:Address>
+						
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</providerOrganization>
+		</patientRole>
+	</recordTarget>
+	
+	<author>
+		
+		<time value="###createDateTime"/>
+		
+		<assignedAuthor>
+			
+			<id root="###concat('oidMedOrg',.100.1.1.70)" extension="12345"/>
+			
+			<id root="1.2.643.100.3" extension="###randInt(10000000000to99999999999)"/>
+			
+			<code code="337" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.1" codeSystemName="Должности медицинских и фармацевтических работников" displayName="заместитель начальника медицинской организации"/>
+			
+			<addr>
+				
+				<streetAddressLine>###concat('Город ','String(10)',', улица ','String(10)',', дом 2')</streetAddressLine>
+				
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+				
+				<postalCode>###randInt(100000to999999)</postalCode>
+				
+				<fias:Address>
+					
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			
+			<telecom value="###concat('tel:+7','randInt(1to9999999999)')"/>
+			
+			<telecom value="mailto:user_dmp@test.ru"/>
+			
+			<assignedPerson>
+				
+				<name>
+					
+					<family>###String(10)</family>
+					
+					<given>###String(5)</given>
+					
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+			</assignedPerson>
+			
+			<representedOrganization classCode="ORG">
+				
+				<id root="###oidMedOrg"/>
+				
+				<name>###medOrgName</name>
+				
+				<telecom value="tel:+74955550202" use="WP"/>
+				
+				<telecom value="http:med-org.ru"/>
+			
+				<addr>
+					
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+					
+					<postalCode>###medOrgIndex</postalCode>
+					
+					<fias:Address>
+						
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedOrganization>
+		</assignedAuthor>
+	</author>
+	
+	<custodian>
+		
+		<assignedCustodian>
+			
+			<representedCustodianOrganization classCode="ORG">
+				
+				<id root="###oidMedOrg"/>
+				
+				<name>###medOrgName</name>
+				
+				<telecom value="tel:+74955550202"/>
+				
+				<addr>
+				
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+					
+					<postalCode>###medOrgIndex</postalCode>
+					
+					<fias:Address>
+						
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedCustodianOrganization>
+		</assignedCustodian>
+	</custodian>
+	
+	<informationRecipient>
+		
+		<intendedRecipient>
+			
+			<receivedOrganization>
+				
+				<id root="1.2.643.5.1.13"/>
+			
+				<name>Министерство здравоохранения Российской Федерации</name>
+			</receivedOrganization>
+		</intendedRecipient>
+	</informationRecipient>
+
+	<legalAuthenticator>
+
+		<time value="###createDateTime"/>
+
+		<signatureCode code="S"/>
+
+		<assignedEntity>
+			<id root="###concat('oidMedOrg',.100.1.1.70)" extension="34567"/>
+			<id root="1.2.643.100.3" extension="###randInt(10000000000to99999999999)"/>
+			<code code="335" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.1" codeSystemName="Должности медицинских и фармацевтических работников" displayName="начальник медицинской организации"/>
+			<addr>
+				<streetAddressLine>###concat('Город ','String(10)',', улица ','String(10)',', дом 2')</streetAddressLine>
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+				<postalCode>###randInt(100000to999999)</postalCode>
+				<fias:Address>
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<telecom value="###concat('tel:+7','randInt(1to9999999999)')"/>
+			<telecom value="mailto:user_dmp@test.ru"/>
+			<assignedPerson>
+				<name>
+					<family>###String(10)</family>
+					<given>###String(5)</given>
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+			</assignedPerson>
+			<representedOrganization classCode="ORG">
+				<id root="###oidMedOrg"/>
+				<name>###medOrgName</name>
+				<telecom value="tel:+74955550202" use="WP"/>
+				<telecom value="http:med-org.ru"/>
+				<addr>
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="###concat('Субъект российской Федерации №','patientRegion')"/>
+					<postalCode>###medOrgIndex</postalCode>
+					<fias:Address>
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedOrganization>
+		</assignedEntity>
+	</legalAuthenticator>
+	<participant typeCode="IND">
+		<associatedEntity classCode="GUAR">
+			<code code="1" codeSystem="1.2.643.5.1.13.13.11.1039" codeSystemVersion="5.1" codeSystemName="Источники оплаты медицинской помощи" displayName="Средства обязательного медицинского страхования"/>
+			<identity:DocInfo>
+				<identity:IdentityDocType xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.99.2.724" codeSystemVersion="1.1" codeSystemName="Типы документов оснований" displayName="Полис ОМС"/>
+				<identity:InsurancePolicyType xsi:type="CD" code="###patientPolicyTypeCode" codeSystem="1.2.643.5.1.13.13.11.1035" codeSystemVersion="1.3" codeSystemName="Виды полиса обязательного медицинского страхования" displayName="###patientPolicyTypeValue"/>
+				<identity:Series xsi:type="ST" nullFlavor="NA" />
+				<identity:Number xsi:type="ST">1234561234567890</identity:Number>
+				<identity:INN xsi:type="ST" nullFlavor="NI"/>
+				<identity:effectiveTime>
+					<identity:low value="20170512"/>
+					<identity:high nullFlavor="NA"/>
+				</identity:effectiveTime>
+			</identity:DocInfo>
+			<scopingOrganization>
+				<id root="1.2.643.5.1.13.13.99.2.183" extension="50006"/>
+				<name>АКЦИОНЕРНОЕ ОБЩЕСТВО "МЕДИЦИНСКАЯ АКЦИОНЕРНАЯ СТРАХОВАЯ КОМПАНИЯ"</name>
+				<telecom use="WP" value="tel:+74952760010"/>
+				<addr>
+					<streetAddressLine>г Москва, ул Малая Ордынка, д 50</streetAddressLine>
+					<address:stateCode xsi:type="CD" code="77" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="г. Москва"/>
+					<postalCode>115184</postalCode>
+					<fias:Address>
+						<fias:AOGUID>659e09db-ea54-412b-be20-fa6507807303</fias:AOGUID>
+						<fias:HOUSEGUID>faf4b60a-d9ca-4440-9d48-0e4140c1c2d3</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</scopingOrganization>
+		</associatedEntity>
+	</participant>
+	<documentationOf>
+		<serviceEvent>
+			<code code="1" codeSystem="1.2.643.5.1.13.13.99.2.726" codeSystemVersion="1.3" codeSystemName="Типы документированных событий" displayName="Консультация"/>
+			<effectiveTime>
+				<low value="202312151700+0300"/>
+				<high value="202312161700+0300"/>
+			</effectiveTime>
+			<medService:serviceForm code="###medServiceFormCode" codeSystem="1.2.643.5.1.13.13.11.1551" codeSystemVersion="1.1" codeSystemName="Формы оказания медицинской помощи" displayName="###medServiceFormValue"/>
+			<medService:serviceType code="3" codeSystem="1.2.643.5.1.13.13.11.1034" codeSystemVersion="4.2" codeSystemName="Виды медицинской помощи" displayName="Первичная специализированная медико-санитарная помощь"/>
+			<medService:serviceCond code="###medServiceCondCode" codeSystem="1.2.643.5.1.13.13.99.2.322" codeSystemVersion="1.2" codeSystemName="Условия оказания медицинской помощи" displayName="###medServiceCondValue"/>
+		</serviceEvent>
+	</documentationOf>
+	<componentOf>
+		<encompassingEncounter>
+			<id root="###concat('oidMedOrg',.100.1.1.15)" extension="###randInt(1to99999999999)"/>
+			<id root="###concat('oidMedOrg',.100.1.1.17)" extension="###concat('randInt(1to99999)','-','randInt(1to99999)')"/>
+			<code code="###medCardTypeCode" codeSystem="1.2.643.5.1.13.13.99.2.723" codeSystemVersion="1.1" codeSystemName="Типы медицинских карт" displayName="###medCardTypeValue"/>
+			<medService:DocType code="41" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.27" codeSystemName="Виды медицинской документации" displayName="Медицинская карта пациента, получающего медицинскую помощь в амбулаторных условиях"/>
+			<effectiveTime>
+				<low value="202312151700+0300"/>
+				<high value="202312161700+0300"/>
+			</effectiveTime>
+		</encompassingEncounter>
+	</componentOf>
+	<component>
+		<structuredBody>
+			<component>
+				<section>
+					<code code="AMBS" codeSystem="1.2.643.5.1.13.13.99.2.197" codeSystemVersion="1.12" codeSystemName="Секции электронных медицинских документов" displayName="Сведения амбулаторно-поликлинического обращения"/>
+					<title>ОБРАЩЕНИЕ</title>
+					<text>
+						<paragraph>
+							<caption>Шифр МКБ</caption>T23.2</paragraph>
+						<table width="100%">
+							<col width="10%"/>
+							<col width="20%"/>
+							<col width="10%"/>
+							<col width="20%"/>
+							<col width="15%"/>
+							<col width="25%"/>
+							<tbody>
+								<tr>
+									<th>Тип</th>
+									<th>Цель</th>
+									<th>Вид оплаты</th>
+									<th>Даты</th>
+									<th>Результат обращения</th>
+									<th>Выдано направление</th>
+								</tr>
+								<tr>
+									<td>повторное</td>
+									<td>по заболеванию</td>
+									<td>ОМС</td>
+									<td>c 8 Авг 2021 по 10 Окт 2021</td>
+									<td>Выздоровление</td>
+									<td>На санаторно-курортное лечение</td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+						<table width="100%">
+							<caption>Предварительный диагноз:</caption>
+							<col width="10%"/>
+							<col width="20%"/>
+							<col width="70%"/>
+							<tbody>
+								<tr>
+									<th>Шифр</th>
+									<th>Тип</th>
+									<th>Текст</th>
+								</tr>
+								<tr>
+									<td>T23.2</td>
+									<td>Основное заболевание</td>
+									<td>
+										Термический ожог запястья и кисти второй степени<br/>
+										внешняя причина: Соприкосновение с горячей водой из крана (X11)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+						<table width="100%">
+							<caption>Заключительный диагноз:</caption>
+							<col width="10%"/>
+							<col width="20%"/>
+							<col width="70%"/>
+							<tbody>
+								<tr>
+									<th>Шифр</th>
+									<th>Тип</th>
+									<th>Текст</th>
+								</tr>
+								<tr>
+									<td>T23.2</td>
+									<td>Основное заболевание</td>
+									<td>
+										Термический ожог запястья и кисти второй степени<br/>
+										внешняя причина: Соприкосновение с горячей водой из крана (X11)<br/>
+										травма: прочая<br/>
+										заболевание: острое<br/>
+										диспансерное наблюдение: снят с выздоровлением<br/>
+									</td>
+								</tr>
+								<tr>
+									<td>J41.0</td>
+									<td>Сопутствующая патология</td>
+									<td>Простой хронический бронхит</td>
+								</tr>
+								<tr>
+									<td>N30.1</td>
+									<td>Сопутствующая патология</td>
+									<td>Интерстициальный цистит (хронический)</td>
+								</tr>
+							</tbody>
+						</table>
+					</text>
+					<entry>
+						<encounter classCode="ENC" moodCode="EVN">
+							<id root="###concat('oidMedOrg',.100.1.1.15)" extension="###randInt(1to99999999999)"/>
+							<effectiveTime>
+								<low value="202312151700+0300"/>
+								<high value="202312151730+0300"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ" inversionInd="true">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="###VisitCode" codeSystem="1.2.643.5.1.13.13.11.1007" codeSystemVersion="2.1" codeSystemName="Вид случая госпитализации или обращения (первичный, повторный)" displayName="###VisitValue"/>
+								</observation>
+							</entryRelationship>
+							<entryRelationship typeCode="REFR" inversionInd="false">
+								<act classCode="ACT" moodCode="EVN">
+									<code code="N" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="###concat('Заболевание ','String(10)')"/>
+								</act>
+							</entryRelationship>
+						</encounter>
+					</entry>
+					<entry>
+						<observation classCode="OBS" moodCode="EVN">
+							<code code="1" codeSystem="1.2.643.5.1.13.13.11.1046" codeSystemVersion="4.1" codeSystemName="Результаты обращения" displayName="Выздоровление"/>
+						</observation>
+					</entry>
+					<entry>
+						<observation classCode="OBS" moodCode="EVN">
+							<code code="3" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.27" codeSystemName="Виды медицинской документации" displayName="Направление на госпитализацию, восстановительное лечение, обследование, консультацию"/>
+						</observation>
+					</entry>
+					<entry>
+						<act classCode="ACT" moodCode="EVN">
+							<code code="1" codeSystem="1.2.643.5.1.13.13.99.2.795" codeSystemVersion="1.2" codeSystemName="Степень обоснованности диагноза" displayName="Предварительный диагноз"/>
+							<entryRelationship typeCode="COMP">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="1" codeSystem="1.2.643.5.1.13.13.11.1077" codeSystemVersion="1.3" displayName="Основное заболевание" codeSystemName="Виды нозологических единиц диагноза"/>
+									<text>###concat('Заболевание ','String(10)')</text>
+									<value xsi:type="CD" code="T23.2" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Термический ожог запястья и кисти второй степени"/>
+									<entryRelationship typeCode="CAUS" inversionInd="true">
+										<act classCode="ACT" moodCode="EVN">
+											<code code="X11" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Соприкосновение с горячей водой из крана"/>
+										</act>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<entry>
+						<act classCode="ACT" moodCode="EVN">
+							<code code="3" codeSystem="1.2.643.5.1.13.13.99.2.795" codeSystemVersion="1.2" codeSystemName="Степень обоснованности диагноза" displayName="Заключительный клинический диагноз"/>
+							<entryRelationship typeCode="COMP">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="1" codeSystem="1.2.643.5.1.13.13.11.1077" codeSystemVersion="1.3" displayName="Основное заболевание" codeSystemName="Виды нозологических единиц диагноза"/>
+									<text>###concat('Заболевание ','String(10)')</text>
+									<value xsi:type="CD" code="T23.2" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Термический ожог запястья и кисти второй степени"/>
+									<entryRelationship typeCode="CAUS" inversionInd="true">
+										<act classCode="ACT" moodCode="EVN">
+											<code code="X11" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Соприкосновение с горячей водой из крана"/>
+										</act>
+									</entryRelationship>
+									<entryRelationship typeCode="REFR" inversionInd="false">
+										<act classCode="ACT" moodCode="EVN">
+											<code code="14" codeSystem="1.2.643.5.1.13.13.11.1036" codeSystemVersion="2.1" codeSystemName="Виды травм по способу получения" displayName="Прочие"/>
+										</act>
+									</entryRelationship>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<act classCode="ACT" moodCode="EVN">
+											<code code="3" codeSystem="1.2.643.5.1.13.13.11.1049" codeSystemVersion="2.1" codeSystemName="Характер заболевания " displayName="Острое"/>
+										</act>
+									</entryRelationship>
+									<entryRelationship typeCode="SUBJ" inversionInd="true">
+										<act classCode="ACT" moodCode="EVN">
+											<code code="3" codeSystem="1.2.643.5.1.13.13.11.1047" codeSystemVersion="2.1" codeSystemName="Статусы диспансерного наблюдения" displayName="Снят"/>
+											<entryRelationship typeCode="RSON" inversionInd="false">
+												<act classCode="ACT" moodCode="EVN">
+													<code code="1" codeSystem="1.2.643.5.1.13.13.11.1045" codeSystemVersion="5.1" codeSystemName="Причины прекращения диспансерного наблюдения" displayName="Выздоровление"/>
+												</act>
+											</entryRelationship>
+										</act>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+							<entryRelationship typeCode="COMP">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="3" codeSystem="1.2.643.5.1.13.13.11.1077" codeSystemVersion="1.3" displayName="Сопутствующее заболевание" codeSystemName="Виды нозологических единиц диагноза"/>
+									<text>###concat('Заболевание ','String(10)')</text>
+									<value xsi:type="CD" code="J41.0" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Простой хронический бронхит"/>
+								</observation>
+							</entryRelationship>
+							<entryRelationship typeCode="COMP">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="3" codeSystem="1.2.643.5.1.13.13.11.1077" codeSystemVersion="1.3" displayName="Сопутствующее заболевание" codeSystemName="Виды нозологических единиц диагноза"/>
+									<text>###concat('Заболевание ','String(10)')</text>
+									<value xsi:type="CD" code="N30.1" codeSystem="1.2.643.5.1.13.13.11.1005" codeSystemVersion="2.18" codeSystemName="Международная статистическая классификация болезней и проблем, связанных со здоровьем (10-й пересмотр)" displayName="Интерстициальный цистит (хронический)"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>

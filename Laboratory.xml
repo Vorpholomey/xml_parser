@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="LAB.xsl"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:medService="urn:hl7-ru:medService" xmlns:fias="urn:hl7-ru:fias" xmlns:identity="urn:hl7-ru:identity" xmlns:address="urn:hl7-ru:address">
+	<!-- ЗАГОЛОВОК ДОКУМЕНТА "Протокол лабораторного исследования" --> 
+	<!---->
+	<!-- R [1..] Требуемый элемент. Элемент обязан иметь непустое наполнение, nullFlavor не разрешён -->
+	<!-- [1..] Обязательный элемент. Элемент обязан присутствовать, но может иметь пустое наполнение с указанием причины отсутствия информации через nullFlavor -->
+	<!-- [0..] Не обязательный элемент. Элемент может отсутствовать -->
+	<!---->
+	<!-- R [1..1] Область применения документа (Страна) -->
+	<realmCode code="RU"/>
+	<!-- R [1..1] Указатель на использование CDA R2 -->
+	<typeId root="2.16.840.1.113883.1.3" extension="POCD_MT000040"/>
+	<!-- R [1..1] Идентификатор документа "Руководство по реализации CDA (Release 2) уровень 3 Протокол лабораторного исследования Редакция 4" -->
+	<!-- по справочнику "Реестр руководств по реализации и протоколов информационного взаимодействия структурированных электронных медицинских документов" (OID: 1.2.643.5.1.13.13.99.2.638) -->
+	<templateId root="1.2.643.5.1.13.2.7.5.1.7.9.4"/>
+	<!-- R [1..1] Уникальный идентификатор документа -->
+	<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.51 extension = идентификатор документа -->
+	<id root="###oidMedOrg.100.1.1.51" extension="###docId"/>
+	<!-- R [1..1] Тип документа -->
+	<code code="7" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.45" codeSystemName="Виды медицинской документации" displayName="Протокол лабораторного исследования"/>
+	<!-- R [1..1] Заголовок документа -->
+	<title>Протокол лабораторного исследования</title>
+	<!-- R [1..1] Дата создания документа (с точностью до дня)-->
+	<!-- (= дата выдачи документа = дата получения документа получателем)  -->
+	<effectiveTime value="###createDate"/>
+	<!-- R [1..1] Уровень конфиденциальности медицинского документа -->
+	<confidentialityCode code="###confCode" codeSystem="1.2.643.5.1.13.13.99.2.285" codeSystemVersion="1.1" codeSystemName="Уровень конфиденциальности медицинского документа" displayName="###confValue"/>
+	<!-- R [1..1] Язык документа -->
+	<languageCode code="ru-RU"/>
+	<!-- R [1..1] Уникальный идентификатор набора версий документа -->
+	<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.50 extension = идентификатор набора версий документа -->
+	<setId root="###oidMedOrg.100.1.1.50" extension="###docId"/>
+	<!-- R [1..1] Номер версии данного документа -->
+	<versionNumber value="1"/>
+	<!-- R [1..1] ДАННЫЕ О ПАЦИЕНТЕ-->
+	<recordTarget>
+		<!-- R [1..1] Пациент (роль) -->
+		<patientRole>
+			<!-- R [1..1] Уникальный идентификатор пациента в МИС -->
+			<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.10 extension = идентификатор пациента -->
+			<id root="###oidMedOrg.100.1.1.10" extension="###patientId"/>
+			<!-- R [1..1] СНИЛС пациента -->
+			<id root="1.2.643.100.3" extension="###patientSNILS"/>
+			<!-- [1..1] Документ, удостоверяющий личность получателя, серия, номер, кем выдан. -->
+			<identity:IdentityDoc>
+				<!-- R [1..1] Тип документа -->
+				<identity:IdentityCardType xsi:type="CD" code="###patientDocCode" codeSystem="1.2.643.5.1.13.13.99.2.48" codeSystemVersion="4.2" codeSystemName="Документы, удостоверяющие личность" displayName="###patientDocValue"/>
+				<!-- [1..1] Серия документа -->
+				<identity:Series xsi:type="ST">###patientDocSer</identity:Series>
+				<!-- R [1..1] Номер документа -->
+				<identity:Number xsi:type="ST">###patientDocNum</identity:Number>
+				<!-- [1..1] Кем выдан документ -->
+				<identity:IssueOrgName xsi:type="ST">ОУФМС России ###String(25)</identity:IssueOrgName>
+				<!-- [1..1] Кем выдан документ, код подразделения -->
+				<identity:IssueOrgCode xsi:type="ST">###patientDocOrgCode</identity:IssueOrgCode>
+				<!-- R [1..1] Дата выдачи документа -->
+				<identity:IssueDate xsi:type="TS" value="###genDate"/>
+			</identity:IdentityDoc>
+			<!-- [1..1] Полис ОМС -->
+			<identity:InsurancePolicy>
+				<!-- R [1..1] Тип полиса ОМС -->
+				<identity:InsuracePolicyType xsi:type="CD" code="###patientPolicyTypeCode" codeSystem="1.2.643.5.1.13.13.11.1035" codeSystemVersion="1.3" codeSystemName="Виды полиса обязательного медицинского страхования" displayName="###patientPolicyTypeValue"/>
+				<!-- [0..1] Серия полиса ОМС -->
+				<identity:Series  nullFlavor="NI"/>
+				<!-- R [1..1] Номер полиса ОМС-->
+				<identity:Number xsi:type="ST">###patientOmsNum</identity:Number>
+			</identity:InsurancePolicy>
+			<!-- [1..2] Адрес пациента [1] -->
+			<addr>
+				<!-- R [1..1] Тип адреса пациента -->
+				<address:Type xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.11.1504" codeSystemVersion="1.3" codeSystemName="Тип адреса пациента" displayName="Адрес по месту жительства (постоянной регистрации)"/>
+				<!-- R [1..1] Адрес текстом -->
+				<streetAddressLine>Город ###String(10), улица ###String(10), дом 2, квартира 2</streetAddressLine>
+				<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.4" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации №###patientRegion"/>
+				<!--   [1..1] Почтовый индекс -->
+				<postalCode>###patientAddrIndex</postalCode>
+				<!-- [1..1] Кодирование адреса по ФИАС -->
+				<fias:Address>
+					<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<!-- [1..2] Адрес пациента [2] -->
+			<addr>
+				<!-- R [1..1] Тип адреса пациента -->
+				<address:Type xsi:type="CD" code="3" codeSystem="1.2.643.5.1.13.13.11.1504" codeSystemVersion="1.3" codeSystemName="Тип адреса пациента" displayName="Адрес фактического проживания (пребывания)"/>
+				<!-- R [1..1] Адрес текстом -->
+				<streetAddressLine>Город ###String(10), улица ###String(10), дом 2, квартира 2</streetAddressLine>
+				<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.4" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации №###patientRegion"/>
+				<!--   [1..1] Почтовый индекс -->
+				<postalCode>###patientAddrIndex</postalCode>
+				<!-- [1..1] Кодирование адреса по ФИАС -->
+				<fias:Address>
+					<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<!-- [0..*] Контакты пациента(телефон)[1] -->
+			<telecom value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты пациента (мобильный телефон) [2] -->
+			<telecom use="MC" value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты пациента (электронная почта) [3]-->   
+			<telecom value="mailto:user_dmp@test.ru"/>
+			<!-- R [1..1] Пациент (человек)  -->
+			<patient>
+				<!-- R [1..1] ФИО пациента -->
+				<name>
+					<!-- R [1..1] Фамилия -->
+					<family>###String(10)</family>
+					<!-- R [1..1] Имя -->
+					<given>###String(5)</given>
+					<!-- [0..1] Отчество -->
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+				<!-- [1..1] Пол пациента -->
+				<administrativeGenderCode code="3" codeSystem="1.2.643.5.1.13.13.11.1040" codeSystemVersion="2.1" codeSystemName="Пол пациента" displayName="Неопределенный"/>
+				<!-- [1..1] Дата рождения пациента -->
+				<birthTime value="###genDate"/>
+			</patient>
+			<!-- R [1..1] Медицинская организация (индивидуальный предприниматель), оформившая протокол лабораторного исследования -->
+			<providerOrganization>
+				<!-- R [1..1] Уникальный идентификатор медицинской организации -->
+				<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+				<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+				<id root=""/>
+				<!-- [0..1] Номер лицензии на осуществление медицинской деятельности. Обязательно указывать при внесении данных о индивидуальном предпринимателе -->
+				<id root="1.2.643.5.1.13.2.1.1.1504.101" extension="ЛО-77-01-018580" assigningAuthorityName="Федеральная служба по надзору в сфере здравоохранения (Росздравнадзор). Дата регистрации: 14.08.2019."/>
+				<!-- [1..1] Реквизиты организации -->
+				<identity:Props>
+					<!-- [0..1] Код ОГРН -->
+					<identity:Ogrn xsi:type="ST">###providerOGRN</identity:Ogrn>
+					<!-- [0..1] Код ОКАТО -->
+					<identity:Okato xsi:type="ST">###randInt(11)</identity:Okato>
+				</identity:Props>
+				<!-- R [1..1] Наименование медицинской организации или ФИО Индивидуального предпринимателя -->
+				<!-- При заполнении протокола лабораторного исследования в медицинской организации указывается полное наименование медицинской организации. -->
+				<!-- В случае заполнения протокола лабораторного исследования индивидуальным предпринимателем указывается его фамилия, имя, отчество -->
+				<name>###medOrgName</name>
+				<!-- [0..*] Контакты организации (телефон) [1]  -->
+				<telecom value="tel:+74955550202" use="WP"/>
+				<!-- [0..*] Контакты организации (электронная почта) [2] -->
+				<telecom value="mailto:organization_dmp@test.ru"/>
+				<!-- R [1..1] Адрес организации-->
+				<addr>
+					<!-- R [1..1] Адрес текстом -->
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="77" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.3" codeSystemName="Субъекты Российской Федерации" displayName="г. Москва"/>
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>###medOrgIndex</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->
+					<fias:Address>
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</providerOrganization>
+		</patientRole>
+	</recordTarget>
+	<!-- R [1..1] ДАННЫЕ ОБ АВТОРЕ ДОКУМЕНТА -->
+	<author>
+		<time nullFlavor="NI"/>
+		<!-- R [1..1] АВТОР (роль) -->
+		<assignedAuthor>
+			<!-- R [1..1] Уникальный идентификатор автора в МИС -->
+			<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70 extension = идентификатор персонала -->
+			<id root="###oidMedOrg.100.1.1.70)" extension="###randInt(5)"/>
+			<!-- R [1..1] СНИЛС автора -->
+			<id root="1.2.643.100.3" extension="###randInt(11)"/>
+			<!-- R [1..1] Код должности автора-->
+			<code code="337" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.1" codeSystemName="Должности медицинских и фармацевтических работников" displayName="заместитель начальника медицинской организации"/>
+			<!-- [0..1] Адрес автора документа -->
+			<addr>
+				<!-- R [1..1] Адрес текстом -->
+				<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+				<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+				<!--   [1..1] Почтовый индекс -->
+				<postalCode>###randInt(6)</postalCode>
+				<!-- [1..1] Кодирование адреса по ФИАС -->
+				<fias:Address>
+					<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<!-- [0..*] Контакты автора (телефон) [1] -->
+			<telecom value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты автора (мобильный телефон) [2] -->
+			<telecom value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты автора (электронная почта) [3] -->
+			<telecom value="mailto:user_dmp@test.ru"/>
+			<!-- R [1..1] АВТОР (человек) -->
+			<assignedPerson>
+				<!-- R [1..1] Фамилия, Имя, Отчество автора -->
+				<name>
+					<!-- R [1..1] Фамилия -->
+					<family>###String(10)</family>
+					<!-- R [1..1] Имя -->
+					<given>###String(5)</given>
+					<!-- [0..1] Отчество -->
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+			</assignedPerson>
+			<!-- [0..1] Место работы автора  -->
+			<representedOrganization classCode="ORG">
+				<!-- R [1..1] Уникальный идентификатор медицинской организации -->
+				<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+				<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+				<!-- R [1..1] Наименование организации -->
+				<name>###medOrgName</name>
+				<!-- [0..*] Контакты организации (телефон) [1] -->
+				<telecom value="tel:+74992613850" use="WP"/>
+				<!-- [0..*] Контакты организации (электронная почта) [2] -->
+				<telecom value="mailto:med-org@med-org.ru"/>
+				<!-- [0..1] Адрес организации-->
+				<addr>
+					<!-- R [1..1] Адрес текстом -->
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>###medOrgIndex</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->
+					<fias:Address>
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedOrganization>
+		</assignedAuthor>
+	</author>
+	<!-- R [1..1] ДАННЫЕ ОБ ОРГАНИЗАЦИИ-ВЛАДЕЛЬЦЕ ДОКУМЕНТА -->
+	<custodian>
+		<!-- R [1..1] Организация-владелец документа (роль) -->
+		<assignedCustodian>
+			<!-- R [1..1] Организация-владелец документа (организация) -->
+			<representedCustodianOrganization classCode="ORG">
+				<!-- R [1..1] Уникальный идентификатор медицинской организации -->
+				<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+				<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+				<!-- R [1..1] Наименование организации-владельца документа -->
+				<name>###medOrgName</name>
+				<!-- [0..*] Контакты организации (телефон) -->
+				<telecom value="tel:+74997645002" use="WP"/>
+				<!-- R [1..1] Адрес организации-->
+				<addr>
+					<!-- R [1..1] Адрес текстом -->
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>###medOrgIndex</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->
+					<fias:Address>
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedCustodianOrganization>
+		</assignedCustodian>
+	</custodian>
+	<!-- R [1..1] ДАННЫЕ О ПОЛУЧАТЕЛЕ ДОКУМЕНТА - МЗ РФ-->
+	<informationRecipient>
+		<!-- R [1..1] Получатель документа (роль) -->
+		<intendedRecipient>
+			<!-- R [1..1] Получатель документа (РЭМД) -->
+			<receivedOrganization>
+				<!-- R [1..1] Идентификатор получающей организации-->
+				<id root="1.2.643.5.1.13"/>
+				<!-- R [1..1] Наименование получающей организации-->
+				<name>Министерство здравоохранения Российской Федерации</name>
+			</receivedOrganization>
+		</intendedRecipient>
+	</informationRecipient>
+	<!-- R [1..1] ДАННЫЕ О ЛИЦЕ, ПРИДАВШЕМ ЮРИДИЧЕСКУЮ СИЛУ ДОКУМЕНТУ -->
+	<legalAuthenticator>
+		<time nullFlavor="NI"/>
+		<signatureCode nullFlavor="NI"/>
+		<!-- R [1..1] Лицо, придавшее юридическую силу документу (роль) -->
+		<assignedEntity>
+			<!-- R [1..1] Уникальный идентификатор лица, придавшего юридическую силу документу в МИС -->
+			<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70 extension = идентификатор персонала -->
+			<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+			<!-- R [1..1] СНИЛС лица, придавшего юридическую силу документу -->
+			<id root="1.2.643.100.3" extension="###randInt(11)"/>
+			<!-- R [1..1] Код должности лица, придавшего юридическую силу документу -->
+			<code code="335" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.1" codeSystemName="Должности медицинских и фармацевтических работников" displayName="начальник медицинской организации"/>
+			<!-- [0..1] Адрес лица, придавшего юридическую силу документу -->
+			<addr>
+				<!-- R [1..1] Адрес текстом -->
+				<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+				<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+				<!--   [1..1] Почтовый индекс -->
+				<postalCode>###randInt(6)</postalCode>
+				<!-- [1..1] Кодирование адреса по ФИАС -->
+				<fias:Address>
+					<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<!-- [0..*] Контакты лица, придавшего юридическую силу документу (телефон) [1] -->
+			<telecom value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты лица, придавшего юридическую силу документу (мобильный телефон) [2] -->
+			<telecom value="tel:+7###randInt(10)"/>
+			<!-- [0..*] Контакты лица, придавшего юридическую силу документу (электронная почта) [3] -->
+			<telecom value="mailto:user_dmp@test.ru"/>
+			<!-- R [1..1] Лицо, придавшее юридическую силу документу (человек) -->
+			<assignedPerson>
+				<!-- R [1..1] Фамилия, Имя, Отчество лица, придавшего юридическую силу документу -->
+				<name>
+					<!-- R [1..1] Фамилия -->
+					<family>###String(10)</family>
+					<!-- R [1..1] Имя -->
+					<given>###String(5)</given>
+					<!-- [0..1] Отчество -->
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+			</assignedPerson>
+			<!-- [0..1] Место работы лица, придавшего юридическую силу документу -->
+			<representedOrganization classCode="ORG">
+				<!-- R [1..1] Уникальный идентификатор медицинской организации -->
+				<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+				<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+				<!-- R [1..1] Наименование организации -->
+				<name>###medOrgName</name>
+				<!-- [0..*] Контакты организации (телефон) [1] -->
+				<telecom value="tel:+74997645002" use="WP"/>
+				<!-- [0..*] Контакты организации (электронная почта) [2]   -->
+				<telecom value="mailto:med-org@med-org.ru"/>
+				<!-- [1..1] Адрес организации-->
+				<addr>
+					<!-- R [1..1] Адрес текстом -->
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>###medOrgIndex</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->
+					<fias:Address>
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</representedOrganization>
+		</assignedEntity>
+	</legalAuthenticator>
+	<!-- R [1..1] СВЕДЕНИЯ ОБ ИСТОЧНИКЕ ОПЛАТЫ -->					
+	<participant typeCode="IND">					
+		<!-- R [1..1] Источник оплаты -->				
+		<associatedEntity classCode="GUAR">				
+			<!--  [1..1] Кодирование источника оплаты -->			
+			<code code="1" codeSystem="1.2.643.5.1.13.13.11.1039" codeSystemVersion="5.2" codeSystemName="Источники оплаты медицинской помощи" displayName="Средства обязательного медицинского страхования"/>			
+			<!-- [1..1] Документ основание -->			
+			<identity:DocInfo>			
+				<!-- R [1..1] Тип документа -->		
+				<identity:IdentityDocType xsi:type="CD" code="1" codeSystem="1.2.643.5.1.13.13.99.2.724" codeSystemVersion="1.1" codeSystemName="Типы документов оснований" displayName="Полис ОМС"/>	
+				<!-- [1..1] Тип полиса ОМС -->
+				<!-- В случае, когда оплата идет по ОМС, но нет соответствующего документа, то указывается атрибут @nullFlavor со значением “NAV” -->
+				<identity:InsurancePolicyType xsi:type="CD" code="###patientPolicyTypeCode" codeSystem="1.2.643.5.1.13.13.11.1035" codeSystemVersion="1.3" codeSystemName="Виды полиса обязательного медицинского страхования" displayName="###patientPolicyTypeValue"/>
+				<!-- [1..1] Серия полиса ОМС -->
+				<identity:Series  nullFlavor="NA"/>
+				<!-- [1..1] Номер документа -->	
+				<!-- В случае, когда оплата идет по ОМС, но нет соответствующего документа, то указывается атрибут @nullFlavor со значением “NAV” -->			
+				<identity:Number xsi:type="ST">###randInt(18)</identity:Number>
+				<!-- [1..1] ИНН -->		
+				<identity:INN xsi:type="ST">###randInt(10)</identity:INN>		
+				<!-- [1..1] Срок действия документа -->
+				<!-- В случае, когда оплата идет по ОМС, но нет соответствующего документа, то указывается атрибут @nullFlavor со значением “NAV” -->
+				<identity:effectivetime>
+					<!-- R [1..1] Дата начала действия документа -->
+					<identity:low xsi:type="TS" value="###genDate"/>
+					<!-- [1..1] Дата конца действия документа -->
+					<identity:high nullFlavor="NA"/>
+				</identity:effectivetime>
+			</identity:DocInfo>			
+			<!-- [0..1] Сведения об организации (страховой компании или юридического лица) -->			
+			<scopingOrganization>
+				<!-- [1..1] Уникальный идентификатор страховой компании или юридического лица -->		
+				<id root="1.2.643.5.1.13.13.99.2.183" extension="77013"/>
+				<!-- R [1..1] Наименование страховой компании или юридического лица-->	
+				<name>АКЦИОНЕРНОЕ ОБЩЕСТВО "МЕДИЦИНСКАЯ АКЦИОНЕРНАЯ СТРАХОВАЯ КОМПАНИЯ"</name>
+				<!-- [1..*] Контакты страховой компании или юридического лица (телефон) -->		
+				<telecom value="tel:+74952323491"/>		
+				<!--  [1..1] Адрес страховой компании или юридического лица -->		
+				<addr>		
+					<!-- R [1..1] Адрес текстом -->	
+					<streetAddressLine>г Москва, ул Рочдельская, д 15 стр 35</streetAddressLine>	
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="77" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.3" codeSystemName="Субъекты Российской Федерации" displayName="г. Москва"/>	
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>123376</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->	
+					<fias:Address>	
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>6bfbfcbb-87a7-4674-a8e5-bf5f1bbfbf92</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>0b33a0e1-3427-409a-a3b7-e57716819f38</fias:HOUSEGUID>
+					</fias:Address>	
+				</addr>		
+			</scopingOrganization>			
+		</associatedEntity>				
+	</participant>
+	<!-- [0..1] СВЕДЕНИЯ О НАПРАВИВШЕМ ЛИЦЕ И ОРГАНИЗАЦИИ -->
+	<participant typeCode="REF">
+		<associatedEntity classCode="PROV">
+			<!-- R [1..1] Уникальный идентификатор направившего лица -->
+			<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+			<!-- [1..1] СНИЛС направившего лица -->
+			<id root="1.2.643.100.3" extension="###randInt(11)"/>
+			<!-- R [1..1] Код должности направившего лица -->
+			<code code="109" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.5" codeSystemName="Должности медицинских и фармацевтических работников" displayName="врач-терапевт"/>
+			<!-- [1..1] Адрес направившего лица -->
+			<addr>
+				<!-- R [1..1] Адрес текстом -->
+				<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+				<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+				<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+				<!--   [1..1] Почтовый индекс -->
+				<postalCode>###randInt(6)</postalCode>
+				<!-- [1..1] Кодирование адреса по ФИАС -->
+				<fias:Address>
+					<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+					<fias:AOGUID>###randGUID</fias:AOGUID>
+					<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+					<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+				</fias:Address>
+			</addr>
+			<!-- [0..1] Контакты направившего лица (телефон) -->
+			<telecom value="tel:+7###randInt(10)" use="WP"/>
+			<!-- R [1..1] Направивший врач (человек) -->
+			<associatedPerson>
+				<!-- R [1..1] Фамилия, Имя, Отчество направившего врача -->
+				<name>
+					<!-- R [1..1] Фамилия -->
+					<family>###String(10)</family>
+					<!-- R [1..1] Имя -->
+					<given>###String(5)</given>
+					<!-- [0..1] Отчество -->
+					<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+				</name>
+			</associatedPerson>
+			<!-- [0..1] Место работы направившего врача -->
+			<scopingOrganization>
+				<!-- R [1..1] Уникальный идентификатор направившего учреждения -->
+				<!-- организации - по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461) -->
+				<id root="###oidMedOrg"/>
+				<!-- R [1..1] Наименование направившего учреждения -->
+				<name>###medOrgName</name>
+				<!-- [0..*] Контакты направившего учреждения (телефон) -->
+				<telecom value= "tel:+74957796609" use="WP"/>
+				<!-- R [1..1] Адрес направившего учреждения -->
+				<addr>
+					<!-- R [1..1] Адрес текстом -->
+					<streetAddressLine>###medOrgAddress</streetAddressLine>
+					<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+					<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+					<!--   [1..1] Почтовый индекс -->
+					<postalCode>###medOrgIndex</postalCode>
+					<!-- [1..1] Кодирование адреса по ФИАС -->
+					<fias:Address>
+						<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+						<fias:AOGUID>###randGUID</fias:AOGUID>
+						<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+						<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+					</fias:Address>
+				</addr>
+			</scopingOrganization>
+		</associatedEntity>
+	</participant>
+	<!-- [0..1] СВЕДЕНИЯ О НАПРАВЛЕНИИ -->
+	<inFulfillmentOf>
+		<!-- R [1..1] Направление -->
+		<order>
+			<!-- R [1..1] Уникальный идентификатор направления на лабораторное исследование -->
+			<id root="###oidMedOrg.100.1.1.###randInt(5)" extension="###randInt(5)"/>
+			<!-- R [1..1] Вид медицинского направления -->
+			<code code="107" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.45" codeSystemName="Виды медицинской документации" displayName="Направление на лабораторное исследование"/>
+		</order>
+	</inFulfillmentOf>
+	<!-- R [1..*] СВЕДЕНИЯ О ДОКУМЕНТИРУЕМОМ СОБЫТИИ-->
+	<documentationOf>
+		<!-- R [1..1] Проведённое исследование -->
+		<serviceEvent>
+			<!-- R [1..1] Тип документируемого события -->
+			<code code="4" codeSystem="1.2.643.5.1.13.13.99.2.726" codeSystemVersion="2.6" codeSystemName="Типы документированных событий" displayName="Лабораторное исследование"/>
+			<!-- R [1..1] Даты исследования -->
+			<effectiveTime>
+				<!-- R [1..1] Дата начала исследования (доставка материала в лабораторию) -->
+				<low value="###createDateTime"/>
+				<!-- R [1..1] Дата окончания исследования -->
+				<high value="###createDateTime"/>
+			</effectiveTime>
+			<!-- [1..1] Форма оказания медицинской помощи -->
+			<medService:serviceForm code="###medServiceFormCode" codeSystem="1.2.643.5.1.13.13.11.1551" codeSystemVersion="1.1" codeSystemName="Формы оказания медицинской помощи" displayName="###medServiceFormValue"/>
+			<!-- [1..1] Вид оказания медицинской помощи -->
+			<medService:serviceType code="###medServiceKindCode" codeSystem="1.2.643.5.1.13.13.11.1034" codeSystemVersion="4.2" codeSystemName="Виды медицинской помощи" displayName="###medServiceKindValue"/>
+			<!-- [1..1] Условия оказания медицинской помощи -->
+			<medService:serviceCond code="###medServiceCondCode" codeSystem="1.2.643.5.1.13.13.99.2.322" codeSystemVersion="1.2" codeSystemName="Условия оказания медицинской помощи" displayName="###medServiceCondValue"/>
+			<!-- R [1..*] СВЕДЕНИЯ ОБ ИСПОЛНИТЕЛЯХ ИССЛЕДОВАНИЯ -->
+			<performer typeCode="PPRF">
+				<assignedEntity>
+					<!-- R [1..1] Уникальный идентификатор исполнителя -->
+					<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+					<!-- R [1..1] СНИЛС исполнителя -->
+					<id root="1.2.643.100.3" extension="###randInt(11)"/>
+					<!-- R [1..1] Должность исполнителя -->
+					<code code="35" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.5" codeSystemName="Должности медицинских и фармацевтических работников" displayName="врач клинической лабораторной диагностики"/>
+					<!-- [0..1] Адрес исполнителя -->
+					<addr>
+						<!-- R [1..1] Адрес текстом -->
+						<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+						<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+						<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+						<!--   [1..1] Почтовый индекс -->
+						<postalCode>###randInt(6)</postalCode>
+						<!-- [1..1] Кодирование адреса по ФИАС -->
+						<fias:Address>
+							<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+							<fias:AOGUID>###randGUID</fias:AOGUID>
+							<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+							<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+						</fias:Address>
+					</addr>
+					<!-- [0..1] Контакты исполнителя -->
+					<!-- R [1..1] Исполнитель -->
+					<assignedPerson>
+						<!-- R [1..1] Фамилия, Имя, Отчество исполнителя -->
+						<name>
+							<!-- R [1..1] Фамилия -->
+							<family>###String(10)</family>
+							<!-- R [1..1] Имя -->
+							<given>###String(5)</given>
+							<!-- [0..1] Отчество -->
+							<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+						</name>
+					</assignedPerson>
+					<!-- R [1..1] Место работы исполнителя -->
+					<representedOrganization classCode="ORG">
+						<!-- R [1..1] Идентификатор организации исполнителя -->
+						<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+						<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+						<!-- R [1..1] Наименование организации исполнителя -->
+						<name>###medOrgName</name>
+						<!-- R [1..1] Контакты организации исполнителя (телефон) -->
+						<telecom value="tel:+74951564895" use="WP"/>
+						<!-- R [1..1] Адрес организации исполнителя -->
+						<addr>
+							<!-- R [1..1] Адрес текстом -->
+							<streetAddressLine>###medOrgAddress</streetAddressLine>
+							<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+							<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+							<!--   [1..1] Почтовый индекс -->
+							<postalCode>###medOrgIndex</postalCode>
+							<!-- [1..1] Кодирование адреса по ФИАС -->
+							<fias:Address>
+								<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+								<fias:AOGUID>###randGUID</fias:AOGUID>
+								<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+								<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+							</fias:Address>
+						</addr>
+					</representedOrganization>
+				</assignedEntity>
+			</performer>
+			<performer typeCode="SPRF">
+				<assignedEntity>
+					<!-- R [1..1] Уникальный идентификатор исполнителя -->
+					<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+					<!-- R [1..1] СНИЛС исполнителя -->
+					<id root="1.2.643.100.3" extension="###randInt(11)"/>
+					<!-- R [1..1] Должность исполнителя -->
+					<code code="177" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.5" codeSystemName="Должности медицинских и фармацевтических работников" displayName="медицинский лабораторный техник (фельдшер-лаборант)"/>
+					<!-- [0..1] Адрес исполнителя -->
+					<addr>
+						<!-- R [1..1] Адрес текстом -->
+						<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+						<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+						<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+						<!--   [1..1] Почтовый индекс -->
+						<postalCode>###randInt(6)</postalCode>
+						<!-- [1..1] Кодирование адреса по ФИАС -->
+						<fias:Address>
+							<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+							<fias:AOGUID>###randGUID</fias:AOGUID>
+							<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+							<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+						</fias:Address>
+					</addr>
+					<!-- R [1..1] Исполнитель -->
+					<assignedPerson>
+						<!-- R [1..1] Фамилия, Имя, Отчество исполнителя -->
+						<name>
+							<!-- R [1..1] Фамилия -->
+							<family>###String(10)</family>
+							<!-- R [1..1] Имя -->
+							<given>###String(5)</given>
+							<!-- [0..1] Отчество -->
+							<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+						</name>
+					</assignedPerson>
+					<!-- R [1..1] Место работы исполнителя -->
+					<representedOrganization classCode="ORG">
+						<!-- R [1..1] Идентификатор организации исполнителя -->
+						<!-- организации - в атрибуте root по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461), при наличии структурного подразделения атрибут extension заполняется по справочнику «ФРМО. Справочник структурных подразделений» (OID: 1.2.643.5.1.13.13.99.2.114) -->
+						<id root="###oidMedOrg" extension="###oidMedOrg.0.###randInt(5)"/>
+						<!-- R [1..1] Наименование организации исполнителя -->
+						<name>###medOrgName</name>
+						<!-- R [1..1] Контакты организации исполнителя (телефон) -->
+						<telecom value="tel:+74951564895" use="WP"/>
+						<!-- R [1..1] Адрес организации исполнителя -->
+						<addr>
+							<!-- R [1..1] Адрес текстом -->
+							<streetAddressLine>###medOrgAddress</streetAddressLine>
+							<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+							<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+							<!--   [1..1] Почтовый индекс -->
+							<postalCode>###medOrgIndex</postalCode>
+							<!-- [1..1] Кодирование адреса по ФИАС -->
+							<fias:Address>
+								<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+								<fias:AOGUID>###randGUID</fias:AOGUID>
+								<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+								<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+							</fias:Address>
+						</addr>
+					</representedOrganization>
+				</assignedEntity>
+			</performer>
+		</serviceEvent>
+	</documentationOf>
+	<!-- R [1..1] СВЕДЕНИЯ О СЛУЧАЕ ОКАЗАНИЯ МЕДИЦИНСКОЙ ПОМОЩИ -->
+	<componentOf>
+		<!-- R [1..1] Случай оказания медицинской помощи -->
+		<encompassingEncounter>
+			<!-- R [1..1] Уникальный идентификатор случая оказания медицинской помощи -->
+			<id root="###oidMedOrg.100.1.1.###randInt(3)" extension="###randInt(4)-###randInt(2)"/>
+			<!-- [0..1] Идентификатор случая оказания медицинской помощи: номер истории болезни, амбулаторной карты -->
+			<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.16 extension = номер истории болезни -->
+			<!-- или по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.17 extension = номер амбулаторной карты -->
+			<id root="###oidMedOrg.100.1.1.17" extension="###randInt(4)-###randInt(2)"/>
+			<!-- [0..1] Типы медицинской карты -->
+			<code code="###medCardTypeCode" codeSystem="1.2.643.5.1.13.13.99.2.723" codeSystemVersion="1.1" codeSystemName="Типы медицинских карт" displayName="###medCardTypeValue"/>
+			<!-- [0..1] Вид медицинской карты -->
+			<medService:DocType code="41" codeSystem="1.2.643.5.1.13.13.11.1522" codeSystemVersion="4.45" codeSystemName="Виды медицинской документации" displayName="Медицинская карта пациента, получающего медицинскую помощь в амбулаторных условиях"/>
+			<!-- R [1..1] Даты начала и окончания случая -->
+			<effectiveTime>
+				<!-- R [1..1] Дата начала случая -->
+				<low value="###createDateTime"/>
+				<!-- [0..1] Дата окончания случая -->
+				<high value="###createDateTime"/>
+			</effectiveTime>
+		</encompassingEncounter>
+	</componentOf>
+	<!-- ТЕЛО ДОКУМЕНТА -->
+	<component>
+		<!-- R [1..1] Структурированное тело, соответствующее третьему уровню CDA-->
+		<structuredBody>
+			<!-- R [1..1] Информация об исследованных материалах (Исследованные материалы)-->
+			<component>
+				<section>
+					<!-- R [1..1] Информация о коде секции и кодификаторе-->
+					<code code="SPECIMENS" codeSystem="1.2.643.5.1.13.13.99.2.197" codeSystemVersion="1.19" codeSystemName="Секции электронных медицинских документов" displayName="Информация об исследованных материалах"/>
+					<!-- R [1..1] Заголовок секции-->
+					<title>Исследованные материалы</title>
+					<!-- R [1..1] Текстовая информация об исследованных материалах-->
+					<text>###String(10).
+						<br/>###String(10).
+						<br/>---- ###String(10).
+					</text>
+					<!-- R [1..1] Информация об исследованных материалах -->
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<statusCode code="completed"/>
+							<!-- R [1..1] Данные о проведенных процедурах забора материала (забор крови) -->
+							<component>
+								<!-- R [1..1] Данные о проведенной процедуре-->
+								<procedure classCode="PROC" moodCode="EVN">
+									<!-- R [1..1] Набор значений, Справочник, OID:1.2.643.5.1.13.13.11.1070 «Номенклатура медицинских услуг»-->
+									<code code="###medServiceCode" codeSystem="1.2.643.5.1.13.13.11.1070" codeSystemVersion="2.10" codeSystemName="Номенклатура медицинских услуг" displayName="###medServiceValue"/>
+									<!-- R [1..1] Статус выполнения процедуры-->
+									<statusCode code="completed"/>
+									<!-- R [1..1] Время забора материала. Если материал собирался некоторый интервал времени, то этот интервал указывается явным образом-->
+									<!--ДОЛЖНО быть указано с точностью до дня, СЛЕДУЕТ указывать с точностью до минут. Если указано с точностью до минут, то ДОЛЖНА быть указанная временная зона. МОЖНО уточнить время до секунд.-->
+									<effectiveTime value="###createDateTime"/>
+									<!-- R [1..*] информация об образце исследования -->
+									<specimen>
+										<specimenRole>
+											<id root="###oidMedOrg.100.1.1.66" extension="###randInt(10)"/>
+											<specimenPlayingEntity classCode="ENT" determinerCode="INSTANCE">
+												<code code="###LabMaterialCode" codeSystem="1.2.643.5.1.13.13.11.1081" codeSystemVersion="2.4" codeSystemName="Федеральный справочник лабораторных исследований. Справочник лабораторных материалов и образцов" displayName="###LabMaterialValue"/>
+												<quantity value="###randInt(1).5" unit="ml">
+													<translation value="###randInt(1).5" displayName="мл" code="16" codeSystem="1.2.643.5.1.13.13.11.1358" codeSystemVersion="3.2" codeSystemName="Единицы измерения"/>
+												</quantity>
+												<desc>Штрихкод: ###randInt(10)</desc>
+											</specimenPlayingEntity>
+										</specimenRole>
+									</specimen>
+									<!-- [1..*] Если известны сотрудники производившие забор материала для исследования, их следует указать-->
+									<performer>
+										<!-- R [1..1] Сведения о человеке, осуществлявшем забор материала-->
+										<assignedEntity>
+											<!--R [1..1] Уникальный идентификатор назначенного лица в МИС-->
+											<!--ДОЛЖЕН быть заполнен синтаксически корректным OID (должен соответствовать регулярному выражению ([0-2])(.([1-9][0-9]*|0))+).-->
+											<!--ДОЛЖЕН быть сформирован по правилу: «OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70»-->
+											<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+											<!--[1..1] СНИЛС-->
+											<id root="1.2.643.100.3" extension="###randInt(11)"/>
+											<!-- R [1..1] Код должности-->
+											<!--Набор значений, OID:нет Справочник, OID:1.2.643.5.1.13.13.11.1002 "Должности работников организаций медицинского и фармацевтического профиля"-->
+											<code code="171" codeSystem="1.2.643.5.1.13.13.11.1002" codeSystemVersion="7.5" codeSystemName="Должности медицинских и фармацевтических работников" displayName="медицинская сестра процедурной"/>
+											<!--  [0..1] Адрес лица, осуществлявшего забор материала -->
+											<addr>
+												<!-- R [1..1] Адрес текстом -->
+												<streetAddressLine>Город ###String(10), улица ###String(10), дом 2</streetAddressLine>
+												<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+												<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+												<!--   [1..1] Почтовый индекс -->
+												<postalCode>###randInt(6)</postalCode>
+												<!-- [1..1] Кодирование адреса по ФИАС -->
+												<fias:Address>
+													<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+													<fias:AOGUID>###randGUID</fias:AOGUID>
+													<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+													<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+												</fias:Address>
+											</addr>
+											<!-- [0..1] Контакты исполнителя (телефон) -->
+											<telecom value="tel:+7###randInt(10)"/>
+											<!-- R [1..1] Назначенное лицо (человек)-->
+											<assignedPerson>
+												<!-- R [1..1] Фамилия, Имя, Отчество лица, осуществлявщего забор/подготовка материала  -->
+												<name>
+													<!-- R [1..1] Фамилия -->
+													<family>###String(10)</family>
+													<!-- R [1..1] Имя -->
+													<given>###String(5)</given>
+													<!-- [0..1] Отчество -->
+													<identity:Patronymic xsi:type="ST">###String(10)</identity:Patronymic>
+												</name>
+											</assignedPerson>
+											<!-- [0..1] Организация, в которой проводился забор/подготовка материала -->
+											<representedOrganization>
+												<!-- R [1..1] Идентификатор организации, в которой проводился забор/подготовка материала  -->
+												<!-- организации - по справочнику «Реестр медицинских организаций Российской Федерации» (OID: 1.2.643.5.1.13.13.11.1461) -->
+												<id root="###oidMedOrg"/>
+												<!-- R [1..1] Наименование организации, в которой проводился проводился забор/подготовка материала -->
+												<name>###medOrgName</name>
+												<!-- [1..1] Контакты организации, в которой проводился забор/подготовка материала [1] -->
+												<telecom value="tel:+74954342491"/>
+												<!-- [0..*] Контакты организации(телефон) [2] -->
+												<telecom value="tel:+74954342570"/>
+												<!-- R [1..1] Адрес направившего учреждения -->
+												<addr>
+													<!-- R [1..1] Адрес текстом -->
+													<streetAddressLine>###medOrgAddress</streetAddressLine>
+													<!-- R [1..1] Субъект РФ (Код ФНС по справочнику "Субъекты Российской Федерации" (OID:1.2.643.5.1.13.13.99.2.206)) -->	
+													<address:stateCode xsi:type="CD" code="###patientRegion" codeSystem="1.2.643.5.1.13.13.99.2.206" codeSystemVersion="6.2" codeSystemName="Субъекты Российской Федерации" displayName="Субъект российской Федерации № ###patientRegion"/>
+													<!--   [1..1] Почтовый индекс -->
+													<postalCode>###medOrgIndex</postalCode>
+													<!-- [1..1] Кодирование адреса по ФИАС -->
+													<fias:Address>
+														<!-- R [1..1] Глобальный уникальный идентификатор адресного объекта  -->
+														<fias:AOGUID>###randGUID</fias:AOGUID>
+														<!-- [1..1] Глобальный уникальный идентификатор дома  -->
+														<fias:HOUSEGUID>###randGUID</fias:HOUSEGUID>
+													</fias:Address>
+												</addr>
+											</representedOrganization>
+										</assignedEntity>
+									</performer>
+									<!-- [0..*] Описание образца, полученного в ходе обработки материала.-->
+									<entryRelationship typeCode="REFR">
+										<!-- R [1..1] Данные о проведенной процедуре-->
+										<procedure classCode="PROC" moodCode="EVN">
+											<!-- R [1..1] Набор значений, Справочник, OID:1.2.643.5.1.13.13.11.1070 «Номенклатура медицинских услуг»-->
+											<code codeSystem="1.2.643.5.1.13.13.11.1070" codeSystemName="Номенклатура медицинских услуг" nullFlavor="OTH">
+												<originalText>###String(10)</originalText>
+											</code>
+											<!-- R [1..1] Статус выполнения исследования-->
+											<statusCode code="completed"/>
+											<!-- R [1..1] Время обработки материала. Если материал обработывался некоторый интервал времени, то этот интервал указывается явным образом-->
+											<!--ДОЛЖНО быть указано с точностью до дня, СЛЕДУЕТ указывать с точностью до минут. Если указано с точностью до минут, то ДОЛЖНА быть указанная временная зона. МОЖНО уточнить время до секунд.-->
+											<effectiveTime>
+												<!-- R [1..1] Время начала обработки материала.-->
+												<low value="###createDateTime"/>
+												<!-- R [1..1] Время окончания обработки материала.-->
+												<high value="###createDateTime"/>
+											</effectiveTime>
+											<!-- R [1..1] информация об образце исследования -->
+											<specimen>
+												<specimenRole>
+													<id root="###oidMedOrg.100.1.1.66" extension="###randInt(10)"/>
+													<specimenPlayingEntity classCode="ENT" determinerCode="INSTANCE">
+														<code code="###LabMaterialCode" codeSystem="1.2.643.5.1.13.13.11.1081" codeSystemVersion="2.4" codeSystemName="Федеральный справочник лабораторных исследований. Справочник лабораторных материалов и образцов" displayName="###LabMaterialSpecimenValue"/>
+														<quantity value="###randInt(1)" unit="U">
+															<translation value="###randInt(1)" displayName="Единица" code="128" codeSystem="1.2.643.5.1.13.13.11.1358" codeSystemVersion="3.2" codeSystemName="Единицы измерения"/>
+														</quantity>
+														<desc>###String(10)</desc>
+													</specimenPlayingEntity>
+												</specimenRole>
+											</specimen>
+											<!--  [1..*] Если известны сотрудники производившие обработку материала для исследования, их следует указать-->
+											<performer>
+												<!-- R [1..1] Сведения о человеке, осуществлявшем обработку материала-->
+												<assignedEntity>
+													<!--R [1..1] Уникальный идентификатор назначенного лица в МИС-->
+													<!--ДОЛЖЕН быть заполнен синтаксически корректным OID (должен соответствовать регулярному выражению ([0-2])(.([1-9][0-9]*|0))+).-->
+													<!--ДОЛЖЕН быть сформирован по правилу: «OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70»-->
+													<!--ссылка на фельдшера-лаборанта Добролюбову из раздела ИСПОЛНИТЕЛИ заголовка-->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+												</assignedEntity>
+											</performer>
+										</procedure>
+									</entryRelationship>
+								</procedure>
+							</component>
+						</organizer>
+					</entry>
+				</section>
+			</component>
+			<!-- R [1..1] СЕКЦИЯ: Информация об использованном оборудовании и расходных материалах (Оборудование и расходные материалы)-->
+			<component>
+				<section>
+					<!-- R [1..1] Информация о коде секции и кодификаторе-->
+					<code code="ANALYSERS" codeSystem="1.2.643.5.1.13.13.99.2.197" codeSystemVersion="1.19" codeSystemName="Секции электронных медицинских документов" displayName="Информация об использованном оборудовании и расходных материалах"/>
+					<!-- R [1..1] Заголовок секции-->
+					<title>Оборудование и расходные материалы</title>
+					<!-- R [1..1] Текстовая информация об исследованных материалах-->
+					<text>###String(10)
+						<br/>
+						<br/>###String(10)
+					</text>
+					<!--R [1..1]  Формализованное перечисление использованного оборудования и расходных материалов -->
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<statusCode code="completed"/>
+							<!-- [1..*]  Устройства: анализаторы и прочее оборудование: typeCode="DEV" -->
+							<participant typeCode="DEV">
+								<participantRole classCode="ROL">
+									<!-- [1..1] ID из cправочника оборудования ЛИС, потом на него можно будет ссылаться в секции с результатами-->
+									<id root="###oidMedOrg.100.1.1.67" extension="###randInt(5)"/>
+									<playingDevice>
+										<!-- R [1..1] Наименование из cправочника оборудования ЛИС-->
+										<manufacturerModelName>###String(10)</manufacturerModelName>
+									</playingDevice>
+								</participantRole>
+							</participant>
+							<!-- [1..*]  Расходные материалы: наборы для определения, тест полоски, катриджи и т.п. : typeCode="CSM" -->
+							<participant typeCode="CSM">
+								<participantRole classCode="ROL">
+									<!-- [1..1] ID из cправочника оборудования ЛИС, потом на него можно будет ссылаться в секции с результатами-->
+									<id root="###oidMedOrg.100.1.1.67" extension="###randInt(5)"/>
+									<playingDevice>
+										<!-- R [1..1] Наименование из cправочника оборудования ЛИС-->
+										<manufacturerModelName>###String(10)</manufacturerModelName>
+									</playingDevice>
+								</participantRole>
+							</participant>
+						</organizer>
+					</entry>
+				</section>
+			</component>
+			<!-- R [1..1] СЕКЦИЯ: Результаты лабораторных исследований (Результаты проведенных исследований)-->
+			<component>
+				<section>
+					<!-- R [1..1] код секции -->
+					<code code="RESLAB" codeSystem="1.2.643.5.1.13.13.99.2.197" codeSystemVersion="1.19" codeSystemName="Секции электронных медицинских документов" displayName="Результаты лабораторных исследований"/>
+					<!-- R [1..1] заголовок секции -->
+					<title>Результаты проведенных исследований</title>
+					<!-- R [1..1] наполнение секции -->
+					<text>
+						<table width="100%">
+							<col width="12%"/>
+							<col width="13%"/>
+							<col width="8%"/>
+							<col width="12%"/>
+							<col width="14%"/>
+							<col width="12%"/>
+							<col width="8%"/>
+							<col width="17%"/>
+							<thead>
+								<tr>
+									<th>Показатель</th>
+									<th>Значение</th>
+									<th>Единицы измерения</th>
+									<th>Референтный диапазон</th>
+									<th>Комментарий</th>
+									<th>Оборудование</th>
+									<th>Дата</th>
+									<th>Исполнитель</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="8">
+										<content styleCode="Bold">###String(10)</content>
+									</td>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>166</td>
+									<td>г/л</td>
+									<td>120 - 150</td>
+									<td/>
+									<td>###String(10)</td>
+									<td></td>
+									<td>лаборант<br/>врач</td>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>++</td>
+									<td/>
+									<td>###String(10) </td>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td></td>
+									<td>лаборант<br/>врач</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<content styleCode="Italics">Примечание:</content>
+									</td>
+									<td>###String(10)</td>
+									<td>врач</td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<content styleCode="Bold">###String(10)</content>
+									</td>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td>###String(10) </td>
+									<td/>
+									<td/>
+									<td>###String(10)</td>
+									<td>###String(10).</td>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td/>
+									<td/>
+									<td/>
+									<td/>
+									<td>###String(10)2 </td>
+									<td>врач</td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<content styleCode="Bold">###String(10)</content>
+									</td>
+								</tr>
+								<tr>
+									<td>Группа крови</td>
+									<td>B (III)</td>
+									<td/>
+									<td/>
+									<td/>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td>врач</td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+						<paragraph>
+							<caption>Заключение</caption>###String(10).
+						</paragraph>
+					</text>
+					<!-- R [1..1] -->
+					<entry>
+						<organizer classCode="CLUSTER" moodCode="EVN">
+							<statusCode code="completed"/>
+							<!-- R [1..*] Кодирование лабораторного исследования  -->
+							<component>
+								<organizer classCode="BATTERY" moodCode="EVN">
+									<!-- R [1..1] Указание произвольной группировки исследований -->
+									<code>
+										<originalText>###String(10)</originalText>
+									</code>
+									<statusCode code="completed"/>
+									<!-- R [1..*] Кодирование лабораторного параметра -->
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- R [1..1] Лабораторный показатель: гемоглобин, в количественной шкале -->
+											<code code="###LabTestCode1" codeSystem="1.2.643.5.1.13.13.11.1080" codeSystemVersion="3.28" codeSystemName="Федеральный справочник лабораторных исследований. Справочник лабораторных тестов" displayName="###LabTestValue1"/>
+											<!-- R [1..1] Кодирование статуса исследования параметра -->
+											<statusCode code="completed"/>
+											<!-- R [1..1]  Время выполнения лабораторного исследования -->
+											<effectiveTime value="###createDateTime"/>
+											<!-- [1..1] Кодирование результата -->
+											<value xsi:type="PQ" value="100" unit="g/l">
+												<translation value="100" displayName="г/л" code="60" codeSystem="1.2.643.5.1.13.13.11.1358" codeSystemVersion="3.2" codeSystemName="Единицы измерения"/>
+											</value>
+											<!-- [1..1] Код интерпретации результата - выше нормы (поле указывается по справочнику кодов интерпретации результатов" (идентификатор справочника "1.2.643.5.1.13.13.99.2.257")) -->
+											<interpretationCode code="H"/>
+											<!-- R [1..1] Кодирование материала исследования -->
+											<specimen>
+												<specimenRole>
+													<!-- R [1..1] Идентификатор материала исследования - ссылка на секцию SPECIMENS -->
+													<!-- ссылка на Пробирку для гематологических исследований с K3-ЭДТА. Штрихкод: 1234567890 -->
+													<id root="###oidMedOrg.100.1.1.66" extension="###randInt(10)"/>
+												</specimenRole>
+											</specimen>
+											<!-- R [1..*] исполнитель (роль) -->
+											<performer>
+												<assignedEntity>
+													<!-- R [1..1] Уникальный идентификатор исполнителя - ссылка на раздел doсumentationOf заголовка -->
+													<!--ссылка на врача КЛД Смирнову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+												</assignedEntity>
+											</performer>
+											<!-- R [1..*] исполнитель (роль) -->
+											<performer>
+												<assignedEntity>
+													<!-- R [1..1] Уникальный идентификатор исполнителя - ссылка на раздел doсumentationOf заголовка -->
+													<!--ссылка на фельдшера-лаборанта Добролюбову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(5)"/>
+												</assignedEntity>
+											</performer>
+											<!-- [1..*] Информация об использованном оборудовании и расходных материалах-->
+											<participant typeCode="DEV">
+												<participantRole classCode="ROL">
+													<!-- использованный анализатор - ссылка на секцию ANALYSERS -->
+													<!-- Гематологический анализатор Sysmex KX21 -->
+													<id root="###oidMedOrg.100.1.1.67" extension="###randInt(4)"/>
+												</participantRole>
+											</participant>
+											<!-- [0..1] Кодирование комментария к лабораторному параметру -отсутствует  -->
+											<!-- [0..1] Кодирование референтного интервала -->
+											<referenceRange>
+												<observationRange>
+													<!-- R [1..1] Описание референтного интервала -->
+													<text>25 - 150 г/л</text>
+													<!--  [1..1] Референтный интервал -->
+													<value xsi:type="IVL_PQ">
+														<low value="25" unit="g/l">
+															<translation value="25" displayName="г/л" code="60" codeSystem="1.2.643.5.1.13.13.11.1358" codeSystemVersion="3.2" codeSystemName="Единицы измерения"/>
+														</low>
+														<high value="150" unit="g/l">
+															<translation value="150" displayName="г/л" code="60" codeSystem="1.2.643.5.1.13.13.11.1358" codeSystemVersion="3.2" codeSystemName="Единицы измерения"/>
+														</high>
+													</value>
+													<!-- R [1..1] Код типа референтного интервала - нормальный -->
+													<interpretationCode code="N"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</component>
+									<!-- R [1..*] Кодирование лабораторного параметра -->
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- R [1..1] Лабораторный показатель: шизоциты, в порядковой шкале без общеупотребимого справочника результатов -->
+											<code code="###LabTestCode2" codeSystem="1.2.643.5.1.13.13.11.1080" codeSystemVersion="3.28" codeSystemName="Федеральный справочник лабораторных исследований. Справочник лабораторных тестов" displayName="###LabTestValue2"/>
+											<!-- R [1..1] Кодирование статуса исследования параметра -->
+											<statusCode code="completed"/>
+											<!-- R [1..1]  Время выполнения лабораторного исследования -->
+											<effectiveTime value="###createDateTime"/>
+											<!-- [1..1] Кодирование результата -->
+											<value xsi:type="ST">++</value>
+											<!-- [1..1] Код интерпретации результата - патологический -->
+											<interpretationCode code="A"/>
+											<!-- R [1..*] Кодирование материала исследования -->
+											<specimen>
+												<specimenRole>
+													<!-- R [1..1] Идентификатор материала исследования - ссылка на секцию SPECIMENS -->
+													<!-- ссылка на Пробирку для гематологических исследований с K3-ЭДТА. Штрихкод: 1234567890 -->
+													<id root="###oidMedOrg.100.1.1.66" extension="###randInt(10)"/>
+												</specimenRole>
+											</specimen>
+											<!-- R [1..*] исполнитель (роль) -->
+											<performer>
+												<assignedEntity>
+													<!-- R [1..1] Уникальный идентификатор исполнителя - ссылка на раздел doсumentationOf заголовка -->
+													<!--ссылка на врача КЛД Смирнову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+												</assignedEntity>
+											</performer>
+											<!-- R [1..*] исполнитель (роль) -->
+											<performer>
+												<assignedEntity>
+													<!-- R [1..1] Уникальный идентификатор исполнителя - ссылка на раздел doсumentationOf заголовка -->
+													<!--ссылка на фельдшера-лаборанта Добролюбову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+												</assignedEntity>
+											</performer>
+											<!-- [0..*] Информация об использованном оборудовании и расходных материалах-->
+											<participant typeCode="DEV">
+												<participantRole classCode="ROL">
+													<!-- использованный анализатор - ссылка на секцию ANALYSERS -->
+													<!-- Гематологический анализатор Sysmex KX21 -->
+													<id root="###oidMedOrg.100.1.1.67" extension="###randInt(10)"/>
+												</participantRole>
+											</participant>
+											<!-- [0..1] Кодирование комментария к лабораторному параметру  -->
+											<entryRelationship typeCode="COMP">
+												<act classCode="ACT" moodCode="EVN">
+													<code code="10000" codeSystem="1.2.643.5.1.13.13.99.2.166" codeSystemVersion="1.75" codeSystemName="Кодируемые поля CDA документов" displayName="Комментарий"/>
+													<text>Количество ###String(10)</text>
+													<author>
+														<!-- R [1..1] Дата установки комментария -->
+														<time value="###createDateTime"/>
+														<!-- R [1..1] Автор комментария -->
+														<assignedAuthor>
+															<!-- R [1..1] Уникальный идентификатор автора комментария  - ссылка на раздел doсumentationOf заголовка -->
+															<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70 extension = идентификатор персонала -->
+															<!--ссылка на врача КЛД Смирнову -->
+															<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+														</assignedAuthor>
+													</author>
+												</act>
+											</entryRelationship>
+											<!-- [0..1] Кодирование референтного интервала -->
+											<referenceRange>
+												<observationRange>
+													<!-- R [1..1] Описание референтного интервала -->
+													<text>###String(10)</text>
+													<!--  [1..1] Референтный интервал - числовой в данном случае не применим-->
+													<value xsi:type="IVL_PQ" nullFlavor="NA"/>
+													<!-- R [1..1] Код типа референтного интервала - нормальный -->
+													<interpretationCode code="N"/>
+												</observationRange>
+											</referenceRange>
+										</observation>
+									</component>
+									<!-- [0..1] Примечание к результату исследования -->
+									<component>
+										<act classCode="ACT" moodCode="EVN">
+											<code code="900" codeSystem="1.2.643.5.1.13.13.99.2.166" codeSystemVersion="1.75" codeSystemName="Кодируемые поля CDA документов" displayName="Текстовое примечание к лабораторному исследованию"/>
+											<text>###String(25)</text>
+											<author>
+												<!-- R [1..1] Дата установки примечания -->
+												<time value="###createDateTime"/>
+												<!-- R [1..1] Автор примечания -->
+												<assignedAuthor>
+													<!-- R [1..1] Уникальный идентификатор автора примечания  - ссылка на раздел doсumentationOf заголовка -->
+													<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70 extension = идентификатор персонала -->
+													<!--ссылка на врача КЛД Смирнову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+												</assignedAuthor>
+											</author>
+										</act>
+									</component>
+								</organizer>
+							</component>
+							<!-- R [1..*] Кодирование лабораторного исследования  -->
+							<component>
+								<organizer classCode="BATTERY" moodCode="EVN">
+									<!-- R [1..1] Указание произвольной группировки исследований -->
+									<code>
+										<originalText>###String(10)</originalText>
+									</code>
+									<statusCode code="completed"/>
+									<!-- R [1..1]  Время выполнения лабораторного исследования -->
+									<effectiveTime value="###createDateTime"/>
+									<!-- R [1..*] Кодирование лабораторного параметра -->
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<!-- R [1..1] Лабораторный параметр: группа крови АВ0, качественный показатель с кодированием результатов по федеральному справочнику -->
+											<code code="###LabTestCode3" codeSystem="1.2.643.5.1.13.13.11.1080" codeSystemVersion="3.28" codeSystemName="Федеральный справочник лабораторных исследований. Справочник лабораторных тестов" displayName="###LabTestValue3"/>
+											<!-- R [1..1] Кодирование статуса исследования параметра -->
+											<statusCode code="completed"/>
+											<!-- [1..1] Кодирование результата -->
+											<value xsi:type="ST">--</value>
+											<!-- [1..1] Код интерпретации результата -->
+											<interpretationCode nullFlavor="NA"/>
+											<!-- R [1..1] Кодирование материала исследования -->
+											<specimen>
+												<specimenRole>
+													<!-- R [1..1] Идентификатор материала исследования -->
+													<!-- Пробирка для иммуногематологических исследований с ACD. Штрихкод: 0987654321 -->
+													<id root="###oidMedOrg.100.1.1.66" extension="###randInt(10)"/>
+												</specimenRole>
+											</specimen>
+											<!-- R [1..*] исполнитель (роль) -->
+											<performer>
+												<assignedEntity>
+													<!-- R [1..1] Уникальный идентификатор исполнителя - ссылка на раздел doсumentationOf заголовка -->
+													<!--ссылка на врача КЛД Смирнову -->
+													<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+												</assignedEntity>
+											</performer>
+											<!-- [1..*] Информация об использованном оборудовании и расходных материалах-->
+											<participant typeCode="CSM">
+												<!-- для реактивов CSM-->
+												<participantRole classCode="ROL">
+													<!-- использованные расходные материалы - ссылка на секцию ANALYSERS -->
+													<!-- Гелевые карты для иммуногематологических исследований HEMOS SP -->
+													<id root="###oidMedOrg.100.1.1.67" extension="###randInt(10)"/>
+												</participantRole>
+											</participant>
+											<!-- [0..1] Кодирование комментария к лабораторному параметру -отсутствует  -->
+											<!-- [0..1] Кодирование референтного интервала -->
+										</observation>
+									</component>
+								</organizer>
+							</component>
+							<!-- [0..1] Кодирование общего заключения по проведенным исследованиям  -->
+							<component>
+								<act classCode="ACT" moodCode="EVN">
+									<code code="901" codeSystem="1.2.643.5.1.13.13.99.2.166" codeSystemVersion="1.75" codeSystemName="Кодируемые поля CDA документов" displayName="Текстовое заключение по проведенным лабораторным исследованиям"/>
+									<text>###String(10)</text>
+									<author>
+										<!-- R [1..1] Дата установки примечания -->
+										<time value="###createDateTime"/>
+										<!-- R [1..1] Автор примечания -->
+										<assignedAuthor>
+											<!-- R [1..1] Уникальный идентификатор автора примечания  - ссылка на раздел doсumentationOf заголовка -->
+											<!-- по правилу: root = OID_медицинской_организации.100.НомерМИС.НомерЭкзМИС.70 extension = идентификатор персонала -->
+											<!--ссылка на врача КЛД Смирнову -->
+											<id root="1.2.643.5.1.13.13.12.2.77.8312.100.1.1.70" extension="542177"/>
+											<id root="###oidMedOrg.100.1.1.70" extension="###randInt(10)"/>
+										</assignedAuthor>
+									</author>
+								</act>
+							</component>
+						</organizer>
+					</entry>
+				</section>
+			</component>
+			<!-- [0..1] СЕКЦИЯ: Оказанные услуги -->
+			<component>
+				<section>
+					<!-- R [1..1] код секции -->
+					<code code="SERVICES" codeSystem="1.2.643.5.1.13.13.99.2.197" codeSystemVersion="1.19" codeSystemName="Секции электронных медицинских документов" displayName="Оказанные услуги"/>
+					<!-- R [1..1] заголовок секции -->
+					<title>Оказанные услуги</title>
+					<!-- R [1..1] наполнение секции -->
+					<text>
+						<table width="100%">
+							<col width="10%"/>
+							<col width="80%"/>
+							<col width="10%"/>
+							<tbody>
+								<tr>
+									<th>Дата</th>
+									<th>Услуга</th>
+									<th>Код</th>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+								</tr>
+								<tr>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+									<td>###String(10)</td>
+								</tr>
+							</tbody>
+						</table>
+					</text>
+					<!-- R [1..*] Кодирование медицинской услуги -->
+					<entry>
+						<act classCode="ACT" moodCode="EVN">
+							<!-- R [1..1] Оказанная услуга -->
+							<code code="###medServiceCode" displayName="###medServiceValue" codeSystem="1.2.643.5.1.13.13.11.1070" codeSystemVersion="2.10" codeSystemName="Номенклатура медицинских услуг"/>
+							<!-- R [1..1] Дата и время оказания услуги -->
+							<effectiveTime value="###createDateTime"/>
+						</act>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>
